@@ -5,25 +5,25 @@
 #Codebook
 ##Project Description
 
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
-The goal is to prepare tidy data that can be used for later analysis.
-Create one R script called run_analysis.R that does the following:
--Obtain the data files in raw format.
--Merges the training and the test sets to create one data set.
--Extracts only the measurements on the mean and standard deviation for each measurement. 
--Uses descriptive activity names to name the activities in the data set
--Appropriately labels the data set with descriptive variable names. 
--Finaly create an independent tidy data set with the average of each variable for each activity and each subject.
+The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.  
+The goal is to prepare tidy data that can be used for later analysis.  
+Create one R script called run_analysis.R that does the following:  
+-Obtain the data files in raw format.  
+-Merges the training and the test sets to create one data set.  
+-Extracts only the measurements on the mean and standard deviation for each measurement.  
+-Uses descriptive activity names to name the activities in the data set  
+-Appropriately labels the data set with descriptive variable names.   
+-Finaly create an independent tidy data set with the average of each variable for each activity and each subject.  
 
 ##Study design and data processing
 
 ###Collection of the raw data
 
-The data come from the Human Activity Recognition Using Smartphones Dataset, www.smartlab.ws.
-The experiments have been carriy out with a group of 30 volunteers.
-Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist.
-Using the smartphone embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz have been captured.
-The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+The data come from the Human Activity Recognition Using Smartphones Dataset, www.smartlab.ws.  
+The experiments have been carriy out with a group of 30 volunteers.  
+Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist.  
+Using the smartphone embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz have been captured.  
+The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.  
 
 More details on the experiment website:
 http://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions#
@@ -54,7 +54,7 @@ The following files are available for the train and test data. Their description
 - 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
 - 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'.
                                                   Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt'
- 												  and 'total_acc_z_train.txt' files for the Y and Z axis. 
+     											  and 'total_acc_z_train.txt' files for the Y and Z axis. 
 - 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
 
@@ -67,26 +67,25 @@ The following files are available for the train and test data. Their description
 ##Creating the tidy datafile
 
 ###Getting the data
-The data are available on the web in a zip file, so the download.file and unzip function are used to obtain and decompresse
-the data on are working directory.
+The data are available on the web in a zip file, so the download.file and unzip function are used to obtain and decompress the data on are working directory.
 
 Weblink for the data
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
 
-After the unzip, there is a directory name 'UCI HAR Dataset' containing 2 directories of data: train and test.
-The subjects have been randomly assigned to one of the 2 groups (train or test), so the subjects observations are in only one of the directories.
-The structure of data files is the same in each directory.
+After the unzip, there is a directory name 'UCI HAR Dataset' containing 2 directories of data: train and test.  
+The subjects have been randomly assigned to one of the 2 groups (train or test), so the subjects observations are in only one of the directories.  
+The structure of data files is the same in each directory.  
 When regrouping the data, it is important to take account that there is 2 separated groups of observations (train and test)
-and they must be append (rbind function).
-Also in each of this 2 groups, 3 files (subject_, y_ and x_) with the same numbers of observations must be merge side by side without altering the data order (cbind function).
-The files are loaded in R using the read.csv function and combine together using cbind and rbind functions.
+and they must be append (rbind function).  
+Also in each of this 2 groups, 3 files (subject_, y_ and x_) with the same numbers of observations must be merge side by side without altering the data order (cbind function).  
+The files are loaded in R using the read.csv function and combine together using cbind and rbind functions.  
 
 ###Cleaning of the data
-Once the data have been combined, the variable names are added using the features.txt file and the name function.
-Only the measurements on the mean and standard deviation are kept using subset and the grep function.
-The variables are renamed to be human readable, by replacing abbreviation with full name using sub and gsub function.
-In the tidy dataset, the actvity number have been replace with his appropriated label.
-The average of each variable for each activity and each subject is calculated and stored in a wide form of tidy data.
+Once the data have been combined, the variable names are added using the features.txt file and the name function.  
+Only the measurements on the mean and standard deviation are kept using subset and the grep function.  
+The variables are renamed to be human readable, by replacing abbreviation with full name using sub and gsub function.  
+In the tidy dataset, the actvity number have been replace with his appropriated label.  
+The average of each variable for each activity and each subject is calculated and stored in a wide form of tidy data.  
 
 ##Summary choice
 
@@ -176,9 +175,11 @@ Activity performed by the subjects, (char) WALKING, WALKING_UPSTAIRS, WALKING_DO
 
 ###Notes on variable 3 to 68:
 
-Each variables correspond to a feature and are average of measurements for each combinations of suject*activity.
-Features are normalized and bounded within [-1,1], so there are no unit.
-Informations about the variables used on the feature vector are available in the features_info.txt file.
+Each variables correspond to a feature and are average of measurements for each combinations of suject*activity.  
+Features are normalized and bounded within [-1,1], so there are no unit.  
+Before normalisation, the units used for the accelerations (total and body) are 'g's (gravity of earth -> 9.80665 m/seg2).  
+Before normalisation, the gyroscope units are rad/seg.  
+Informations about the variables used on the feature vector are available in the features_info.txt file.  
 
 ###Sources
 

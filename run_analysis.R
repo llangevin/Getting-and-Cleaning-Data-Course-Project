@@ -46,6 +46,7 @@ train<-cbind(subject_train,y_train,x_train)
 test<-cbind(subject_test,y_test,x_test)
 dataset<-rbind(train,test)
 str(dataset)
+#'data.frame':	10299 obs. of  68 variables:
 
 #Step5
 #Appropriately label the measurements datasets with descriptive variable names.
@@ -71,11 +72,11 @@ str(mean_data)
 #Uses descriptive activity names to name the activities in the data set
 mean_data<-merge(mean_data[-c(1,2)],activity_labels,by.x="activity_number",by.y="activity_number",all.x=T,sort=F)
 mean_data<-mean_data[ order(mean_data[,"subject"], mean_data[,"activity"]),]
-mean_data<-mean_data[c(2,69,3:68)]
-str(mean_data)
+tidy_data<-mean_data[c(2,69,3:68)]
+str(tidy_data)
 #'data.frame':	180 obs. of  68 variables:
-head(mean_data)
+head(tidy_data)
 
 #Step8
 #export tidy dataset to .txt
-write.table(mean_data,file="./UCI HAR Dataset/summary_mean_data.txt",row.name=FALSE)
+write.table(tidy_data,file="./Getting-and-Cleaning-Data-Course-Project/tidy_data.txt",row.name=FALSE)
